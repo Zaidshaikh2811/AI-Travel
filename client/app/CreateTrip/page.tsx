@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import NewTrip from './NEWTRIP'
 import { Metadata } from 'next'

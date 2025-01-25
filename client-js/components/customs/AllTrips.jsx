@@ -20,7 +20,7 @@ const AllTrips = () => {
   const navigate = useRouter();
   const [trips, setTrips] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState < string | null > (null);
+  const [error, setError] = useState(null);
 
 
 

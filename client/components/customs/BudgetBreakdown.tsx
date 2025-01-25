@@ -1,6 +1,6 @@
 import { FiHome, FiTruck, FiCoffee, FiActivity, FiPackage } from 'react-icons/fi';
 
-interface BudgetItem {
+export interface BudgetItem {
     estimatedCost: number;
     mode?: string;
     type?: string;

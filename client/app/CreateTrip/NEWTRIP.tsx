@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { Slider } from '@/components/ui/slider';
 
-import { FiMap, FiCalendar, FiDollarSign, FiUser, FiHeart, FiHome, FiTruck } from 'react-icons/fi';
+import { FiCalendar, FiDollarSign } from 'react-icons/fi';
 import axios from 'axios';
 import { chatSession, generateAIPrompt } from '@/lib/AIModal';
 import { toast } from "react-toastify";

@@ -4,12 +4,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import TripDetails from '@/components/customs/TripDetails';
-import { GetPlaceDetails } from '@/lib/GooglePhoto';
-import { Metadata } from 'next';
+
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-
-const PHOTO_REF_URL = "https://places.googleapis.com/v1/places/ChIJ2fzCmcW7j4AR2JzfXBBoh6E/photos/AUacShh3_Dd8yvV2JZMtNjjbbSbFhSv-0VmUN-uasQ2Oj00XB63irPTks0-A_1rMNfdTunoOVZfVOExRRBNrupUf8TY4Kw5iQNQgf2rwcaM8hXNQg7KDyvMR5B-HzoCE1mwy2ba9yxvmtiJrdV-xBgO8c5iJL65BCd0slyI1/media?maxHeightPx=400&maxWidthPx=400&key=" + process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 
 
@@ -37,9 +34,9 @@ export default function TripPage() {
     const [trip, setTrip] = useState<Trip | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [placePhoto, setPlacePhoto] = useState<string | null>(null);
-    const [photoError, setPhotoError] = useState<string | null>(null);
-    const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+    // const [placePhoto, setPlacePhoto] = useState<string | null>(null);
+    // const [photoError, setPhotoError] = useState<string | null>(null);
+    // const [photoUrl, setPhotoUrl] = useState<string | null>(null);
 
 
 
@@ -69,7 +66,7 @@ export default function TripPage() {
             }
         }
         catch (error) {
-            toast.error('You must be logged in to view this page.');
+            toast.error('You must be logged in to view this page.' + error);
             router.push('/auth/login');
         }
     }

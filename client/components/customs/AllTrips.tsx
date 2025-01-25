@@ -9,8 +9,9 @@ import { Trip } from '@/lib';
 import { LoadingSpinner } from './Loader';
 import { ErrorMessage } from './ErrorPage';
 import { TripCard } from './TripCard';
-import { SearchBar } from './SearchTrip';
+// import { SearchBar } from './SearchTrip';
 import { EmptyState } from './EmptyState';
+
 
 
 
@@ -59,6 +60,8 @@ const AllTrips = () => {
     }
     catch (error) {
       toast.error('You must be logged in to view this page.');
+      console.log(error);
+
       navigate.push('/auth/login');
     }
   }

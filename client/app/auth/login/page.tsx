@@ -121,7 +121,8 @@ export default function LoginPage() {
                         <div className="flex items-center space-x-4">
                             <div className="w-12 h-12 bg-blue-500 rounded-full"></div>
                             <div>
-                                <p className="text-sm">"The best travel planning tool I've ever used!"</p>
+                                {/* <p className="text-sm">" "</p> */}
+                                <p className="text-sm"> ` The best travel planning tool I have ever used!` </p>
                                 <p className="text-sm text-blue-200">- Sarah M.</p>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { useRouter } from 'next/navigation';
@@ -10,15 +10,14 @@ const Header = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [token, setToken] = useState(null);
 
-    // const token = localStorage.getItem('token') || null;
 
-    const router = useRouter();
     useEffect(() => {
-        // Check for token on client-side only
-        if (typeof window !== 'undefined') {
-            setToken(localStorage.getItem('token'));
-        }
+        // Check token on client-side mount
+        const storedToken = window.localStorage.getItem('token');
+        setToken(storedToken);
     }, []);
+    const router = useRouter();
+
 
 
     const logout = async () => {
