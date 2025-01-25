@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: ai-trip-planner
+    env: docker
+    buildCommand: docker build -t ai-trip-planner .
+    startCommand: docker run -p 8080:8080 ai-trip-planner
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_VERIFY
+        sync: false
+      - key: CLIENT_URL
+        value: https://your-frontend-url.vercel.app
+    healthCheckPath: /
+    autoDeploy: true

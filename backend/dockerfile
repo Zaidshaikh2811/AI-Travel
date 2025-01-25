@@ -1,0 +1,27 @@
+# Use the official Bun image
+FROM oven/bun:1.0.30
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json bun.lockb ./
+
+# Install dependencies
+RUN bun install
+
+# Copy source code
+COPY . .
+
+# Environment variables
+ENV PORT=8080
+ENV NODE_ENV=production
+ENV MONGODB_URI=mongodb+srv://zaidshaikhhulk:i3OyRwTpaD9qmpTU@cluster0.gpemd.mongodb.net/
+ENV JWT_VERIFY=ia0f9j0983298udnifasnsdjfoj92
+ENV CLIENT_URL=http://localhost:3000
+
+# Expose port
+EXPOSE 8080
+
+# Start command using Bun
+CMD ["bun", "dev"]

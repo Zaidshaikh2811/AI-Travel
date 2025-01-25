@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGODB_URI=mongodb+srv://zaidshaikhhulk:i3OyRwTpaD9qmpTU@cluster0.gpemd.mongodb.net/
+      - CLIENT_URL=http://localhost:3000
+      - JWT_VERIFY=ia0f9j0983298udnifasnsdjfoj92
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_URL=mongodb+srv://zaidshaikhhulk:i3OyRwTpaD9qmpTU@cluster0.gpemd.mongodb.net/
+    depends_on:
+      - backend
+    restart: always
