@@ -154,7 +154,8 @@ const tripSchema = new Schema({
   dailyItinerary: [dailyItinerarySchema],
   budgetBreakdown: budgetBreakdownSchema,
   specialConsiderations: specialConsiderationsSchema,
-  recommendations: recommendationsSchema
+  recommendations: recommendationsSchema,
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
 export const Trip = mongoose.model('Trip', tripSchema);

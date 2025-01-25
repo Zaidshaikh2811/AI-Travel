@@ -88,6 +88,14 @@ export const loginUser = async (c: Context) => {
             }, 400);
         }
 
+        const isMatch = await Bun.password.verify(password, user.password);
+
+        if (!isMatch) {
+            return c.json({
+                error: 'Invalid credentials'
+            }, 400);
+        }
+
         const payload = { userId: user._id };
 
         const token = jwt.sign(

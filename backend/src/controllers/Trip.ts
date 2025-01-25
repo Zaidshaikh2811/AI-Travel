@@ -61,8 +61,17 @@ export const createTrip = async (c: Context) => {
 
 export const getTrips = async (c: Context) => {
     try {
-        const userId = c.get('userId');
+         const token  = getCookie(c, 'auth_token') ;
+         const decoded = jwt.verify(token, process.env.JWT_VERIFY);
+        const userId = decoded.userId;
+       
+
+        
         const trips = await Trip.find({ userId }).sort({ createdAt: -1 });
+
+      
+        
+        
         return c.json({ trips });
     } catch (err) {
         return c.json({ error: 'Failed to fetch trips' }, 500);
@@ -71,10 +80,17 @@ export const getTrips = async (c: Context) => {
 
 export const getTripById = async (c: Context) => {
     try {
+        console.log("getTripById");
+        
         const tripId = c.req.param('id');
-        const userId = c.get('userId');
+   const token  = getCookie(c, 'auth_token') ;
+         const decoded = jwt.verify(token, process.env.JWT_VERIFY);
+        const userId = decoded.userId;
+    
 
         const trip = await Trip.findOne({ _id: tripId, userId });
+
+        
         
         if (!trip) {
             return c.json({ error: 'Trip not found' }, 404);

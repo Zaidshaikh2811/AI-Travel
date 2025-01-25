@@ -13,7 +13,8 @@ import { getCookie } from 'hono/cookie';
 const tripRouter = new Hono();
 
 tripRouter.use(async(c, next) => {
-       const token  = getCookie(c, 'auth_token');
+       const token  = getCookie(c, 'auth_token') ;
+
 
   if (!token) {
     return c.text('Missing cookie!', 401);
@@ -22,10 +23,12 @@ tripRouter.use(async(c, next) => {
   try {
 
     const decoded = jwt.verify(token, process.env.JWT_VERIFY);
-  
+ 
     
    return next();
   } catch (err) {
+    console.log(err);
+    
     return c.text('Invalid cookie!', 401);
   }
    
