@@ -3,6 +3,7 @@ import { User } from '../models/User';
 
 import jwt from 'jsonwebtoken';
 import {
+    getCookie,
   setCookie,
 } from 'hono/cookie'
 
@@ -152,10 +153,40 @@ export const getProfile = async (c: Context) => {
 };
 
 export const logoutUser = async (c: Context) => {
-    try {
-        // Client should remove token
+    try {  
+        
+       setCookie(c,'auth_token', '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            path: '/',
+            maxAge: 0 // Immediately expire the cookie
+        });
+
+        // Clear any other session data if needed
+        c.set('userId', null);
+        
+        // Log the logout event
+        console.log(`User logged out at ${new Date().toISOString()}`);
+
+         
         return c.json({ message: 'Logged out successfully' });
     } catch (err) {
         return c.json({ error: 'Server error' }, 500);
+    }
+};
+
+
+export const verifyCookie= async (c: Context) => {
+    try {
+        const token = getCookie(c, 'auth_token');
+        if (!token) {
+            return c.json({ error: 'Authentication token not found' }, 401);
+        }
+        const decoded = jwt.verify(token, JWT_SECRET);
+        c.set('userId', decoded.userId);
+        return c.json({ message: 'Token verified' });
+    } catch (err) {
+        return c.json({ error: 'Invalid token' }, 401);
     }
 };

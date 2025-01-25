@@ -10,6 +10,7 @@ import { getCookie } from 'hono/cookie';
 
 
 
+
 const tripRouter = new Hono();
 
 tripRouter.use(async(c, next) => {
@@ -41,6 +42,5 @@ tripRouter.get('/trips/:id', getTripById); // Get a single trip by ID
 tripRouter.put('/trips/:id', updateTrip); // Update an existing trip by ID
 tripRouter.delete('/trips/:id', deleteTrip); // Delete a trip by ID
 tripRouter.get('/search', searchTrips); // Search trips by filters (destination, budget, etc.)
-
 
 export default tripRouter;
