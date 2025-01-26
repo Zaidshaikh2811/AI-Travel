@@ -156,7 +156,7 @@ export const logoutUser = async (c: Context) => {
     try {  
         
        deleteCookie(c, 'auth_token');
-              console.log(getCookie(c, 'auth_token'));
+      
 
          
         return c.json({ message: 'Logged out successfully' });

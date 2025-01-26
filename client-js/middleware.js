@@ -1,15 +1,17 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 
 export function middleware(request) {
 
 
-    const authToken = request.cookies.get("auth_token");
-    const { pathname } = request.nextUrl;
-    console.log("middleware " + authToken);
-    const allCookies = request.cookies.getAll()
-    console.log(allCookies) // => [{ name: 'nextjs', value: 'fast' }]
 
+    const authToken = request.cookies.get("auth_token") || cookies().get('auth_token')?.value;
+
+    const { pathname } = request.nextUrl;
+
+
+    console.log("authToken: " + authToken);
 
 
     // Protected routes
