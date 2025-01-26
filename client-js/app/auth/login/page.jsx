@@ -7,7 +7,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuthStore } from '@/components/providers/AuthStore';
-import { secureStorage } from '@/lib/SecureStorage';
+
 
 
 
@@ -51,7 +51,7 @@ export default function LoginPage() {
 
 
             if (response.data.token) {
-                secureStorage.set('auth_token', response.data.token);
+
                 setToken(response.data.token);
 
             }

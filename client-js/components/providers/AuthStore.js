@@ -27,11 +27,16 @@ export const useAuthStore = create(
             getToken: () => get().token
         }),
         {
-            name: 'auth-store',
-            storage: createJSONStorage(() => localStorage),
+            name: 'auth-storage', // Key for localStorage
+            storage: {
+                getItem: (key) => secureStorage.get(key), // Use secureStorage for getting
+                setItem: (key, value) => secureStorage.set(key, value), // Use secureStorage for setting
+                removeItem: (key) => secureStorage.remove(key), // Use secureStorage for removing
+            },
+            partialize: (state) => ({ token: state.token }), // Only persist the token
             onRehydrateStorage: () => (state) => {
                 state?.initializeAuth();
-            }
+            },
         }
     )
 );
