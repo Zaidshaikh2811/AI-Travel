@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 
 
 export const TripCard = ({ trip }) => (
+
+
     <Link href={`/Trips/${trip._id}`} className="block group">
         <motion.article
             whileHover={{ y: -5 }}

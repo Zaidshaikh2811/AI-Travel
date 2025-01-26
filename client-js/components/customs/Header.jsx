@@ -1,31 +1,25 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { useAuthStore } from '../providers/AuthStore';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [token, setToken] = useState(null);
-
-
-    useEffect(() => {
-        // Check token on client-side mount
-        const storedToken = window.localStorage.getItem('token');
-        setToken(storedToken);
-    }, []);
     const router = useRouter();
+    const token = useAuthStore((state) => state.token);
+    const { clearToken } = useAuthStore();
 
 
 
     const logout = async () => {
         try {
             setIsLoading(true);
-            // Clear localStorage
-            localStorage.removeItem('token');
 
+            clearToken()
             // Clear HTTP-only cookie
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {}, {
                 withCredentials: true

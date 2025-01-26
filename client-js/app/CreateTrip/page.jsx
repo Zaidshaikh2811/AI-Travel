@@ -20,6 +20,7 @@ import {
     weatherPreferences,
     avoidWeatherConditions,
 } from '@/lib';
+import { useAuthStore } from '@/components/providers/AuthStore';
 
 
 
@@ -68,33 +69,7 @@ export default function NewTrip() {
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    useEffect(() => {
-        const verifyUser = async () => {
-            try {
-
-                const token = localStorage.getItem('token');
-
-                const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
-                    withCredentials: true,
-                    headers: {
-                        "Authorization": "Bearer= " + token
-                    }
-                });
-
-
-                if (resp.status !== 200) {
-                    toast.info('You must be logged in to view this page.');
-                    router.push('/auth/login');
-                }
-            }
-            catch (error) {
-                toast.error('You must be logged in to view this page.');
-                router.push('/auth/login');
-            }
-        }
-        verifyUser()
-    }, [router,])
+    const token = useAuthStore((state) => state.token);
 
     const validateForm = (step) => {
         const newErrors = {};
@@ -202,7 +177,7 @@ export default function NewTrip() {
             const responseText = result.response.text()
 
             const jsonResponse = JSON.parse(responseText);
-            const token = localStorage.getItem('token');
+
 
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips`,
                 {

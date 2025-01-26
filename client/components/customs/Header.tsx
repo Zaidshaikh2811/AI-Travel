@@ -8,8 +8,8 @@ import axios from 'axios';
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const token = localStorage.getItem('token') || null;
+    const { clearToken } = useAuthStore();
+    const token = useAuthStore((state) => state.token);
 
     const router = useRouter();
 
@@ -18,9 +18,9 @@ const Header = () => {
     const logout = async () => {
         try {
             setIsLoading(true);
-            // Clear localStorage
-            localStorage.removeItem('token');
 
+
+            clearToken()
             // Clear HTTP-only cookie
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {}, {
                 withCredentials: true

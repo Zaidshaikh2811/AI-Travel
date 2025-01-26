@@ -7,6 +7,7 @@ import TripDetails from '@/components/customs/TripDetails';
 
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useAuthStore } from '@/components/providers/AuthStore';
 
 
 
@@ -16,6 +17,7 @@ import { toast } from 'react-toastify';
 export default function TripPage() {
     const params = useParams();
     const router = useRouter()
+    const token = useAuthStore((state) => state.token);
     const [trip, setTrip] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -30,39 +32,15 @@ export default function TripPage() {
     useEffect(() => {
 
 
-        verifyUser();
 
         fetchTrip();
     }, [params.id, router]);
 
 
-    const verifyUser = async () => {
-        try {
-
-            const token = localStorage.getItem('token');
-
-            const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
-                withCredentials: true,
-                headers: {
-                    "Authorization": "Bearer= " + token
-                }
-            });
-
-
-            if (resp.status !== 200) {
-                toast.info('You must be logged in to view this page.');
-                router.push('/auth/login');
-            }
-        }
-        catch (error) {
-            toast.error('You must be logged in to view this page.' + error);
-            router.push('/auth/login');
-        }
-    }
 
     const fetchTrip = async () => {
         try {
-            const token = localStorage.getItem('token');
+
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips/${params.id}`, {
                 withCredentials: true,
                 headers: {

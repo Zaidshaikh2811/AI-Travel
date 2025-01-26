@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { useAuthStore } from '@/components/providers/AuthStore';
 
 export default function SignupPage() {
     const router = useRouter();
+    const setToken = useAuthStore();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -58,7 +60,7 @@ export default function SignupPage() {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, formData);
 
             if (response.data.token) {
-                localStorage.setItem('token', response.data.token);
+                setToken(response.data.token);
                 router.push('/dashboard');
             }
         } catch (error) {

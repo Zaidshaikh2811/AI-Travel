@@ -16,6 +16,8 @@ const tripRouter = new Hono();
 tripRouter.use(async(c, next) => {
 
    try {
+    console.log(c.req.header);
+    
       const authHeader=c.req.header('Authorization');
      console.log("Authorization header: " + authHeader);
      

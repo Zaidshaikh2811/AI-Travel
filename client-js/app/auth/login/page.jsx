@@ -6,11 +6,16 @@ import Link from 'next/link';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import axiosInstance from '@/lib/axiosInstance';
+import { useAuthStore } from '@/components/providers/AuthStore';
 
 
 
 export default function LoginPage() {
     const router = useRouter();
+    const setToken = useAuthStore();
+
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -38,17 +43,14 @@ export default function LoginPage() {
 
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, formData, {
-                withCredentials: true, // Required for cookies
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            })
-            // const response = await axios.post(`http://localhost:8080/api/users/login`, formData, {
-            //     withCredentials: true,
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
+            });
+
+
+            setToken(response.data.token);
 
 
 
@@ -61,14 +63,14 @@ export default function LoginPage() {
 
 
             // Store token and redirect
-            localStorage.setItem('token', response.data.token);
+
             toast.success('Login successful');
             router.push('/Trips');
         } catch (error) {
 
 
-            toast.error(error instanceof Error ? error.response.data.error : 'Login failed');
-            setApiError(error instanceof Error ? error.response.data.error : 'Login failed');
+            toast.error(error instanceof Error ? error.response : 'Login failed');
+            setApiError(error instanceof Error ? error.response : 'Login failed');
         } finally {
             setIsLoading(false);
         }
