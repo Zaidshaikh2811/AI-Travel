@@ -37,18 +37,13 @@ export default function LoginPage() {
         setApiError('');
 
         try {
-            // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, formData, {
-            //     withCredentials: true, // Required for cookies
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            const response = await axios.post(`http://localhost:8080/api/users/login`, formData, {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, formData, {
                 withCredentials: true, // Required for cookies
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
+
 
 
             if (response.status !== 200) {
