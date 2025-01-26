@@ -58,7 +58,6 @@ const AllTrips = () => {
           "Authorization": "Bearer= " + token
         }
       });
-      c
 
 
 
