@@ -1,31 +1,36 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
+import { secureStorage } from '@/lib/SecureStorage';
 
-
-export const useAuthStore = create()(
+export const useAuthStore = create(
     persist(
         (set, get) => ({
             token: null,
+            isLoading: true,
             setToken: (token) => {
-                console.log('Setting token:', token);
-                set({ token });
+                secureStorage.set('auth_token', token);
+                set({ token, isLoading: false });
             },
-            clearToken: () => set({ token: null }),
+            clearToken: () => {
+                secureStorage.remove('auth_token');
+                set({ token: null });
+            }, initializeAuth: () => {
+                if (typeof window !== 'undefined') {
+                    const storedToken = localStorage.getItem('auth_token');
+                    if (storedToken) {
+                        set({ token: storedToken, isLoading: false });
+                    } else {
+                        set({ isLoading: false });
+                    }
+                }
+            },
             getToken: () => get().token
         }),
         {
-            name: 'auth-storage',
+            name: 'auth-store',
             storage: createJSONStorage(() => localStorage),
-            partialize: (state) => ({ token: state.token }),
-            onRehydrateStorage: (state) => {
-                console.log('Hydrating state:', state);
-                return (rehydratedState, error) => {
-                    if (error) {
-                        console.error('Error rehydrating state:', error);
-                    } else {
-                        console.log('Rehydrated state:', rehydratedState);
-                    }
-                };
+            onRehydrateStorage: () => (state) => {
+                state?.initializeAuth();
             }
         }
     )

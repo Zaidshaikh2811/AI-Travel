@@ -6,14 +6,14 @@ import Link from 'next/link';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import axiosInstance from '@/lib/axiosInstance';
 import { useAuthStore } from '@/components/providers/AuthStore';
+import { secureStorage } from '@/lib/SecureStorage';
 
 
 
 export default function LoginPage() {
     const router = useRouter();
-    const setToken = useAuthStore();
+    const { setToken } = useAuthStore();
 
 
     const [formData, setFormData] = useState({
@@ -50,20 +50,14 @@ export default function LoginPage() {
             });
 
 
-            setToken(response.data.token);
+            if (response.data.token) {
+                secureStorage.set('auth_token', response.data.token);
+                setToken(response.data.token);
 
-
-
-
-
+            }
             if (response.status !== 200) {
                 throw new Error(response.statusText);
             }
-
-
-
-            // Store token and redirect
-
             toast.success('Login successful');
             router.push('/Trips');
         } catch (error) {

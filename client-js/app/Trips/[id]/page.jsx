@@ -51,15 +51,6 @@ export default function TripPage() {
 
             setTrip(data.trip);
 
-            // if (data.trip.destination.name) {
-            //     const photoData = await GetPlaceDetails(data.trip.destination.name);
-            //     if (photoData) {
-            //         setPlacePhoto(photoData);
-            //     }
-            //     const photo = PHOTO_REF_URL.replace("NAME", data.trip.destination.name);
-            //     console.log("Photo " + photo);
-
-            // }
         } catch (err) {
             setError('Failed to load trip details');
             console.error('Error fetching trip:', err);

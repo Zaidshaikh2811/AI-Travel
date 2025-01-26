@@ -177,10 +177,7 @@ export default function NewTrip() {
             const responseText = result.response.text()
 
             const jsonResponse = JSON.parse(responseText);
-            console.log({
-                ...jsonResponse, createdAt: new Date(),
-                startDate: formData.dates.start, endDate: formData.dates.end
-            });
+
 
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips`,
                 {

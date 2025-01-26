@@ -3,6 +3,7 @@ import { User } from '../models/User';
 
 import jwt from 'jsonwebtoken';
 import {
+    deleteCookie,
     getCookie,
   setCookie,
 } from 'hono/cookie'
@@ -154,19 +155,8 @@ export const getProfile = async (c: Context) => {
 export const logoutUser = async (c: Context) => {
     try {  
         
-       setCookie(c,'auth_token', '', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'Strict',
-            path: '/',
-            maxAge: 0 // Immediately expire the cookie
-        });
-
-        // Clear any other session data if needed
-        c.set('userId', null);
-        
-        // Log the logout event
-        console.log(`User logged out at ${new Date().toISOString()}`);
+       deleteCookie(c, 'auth_token');
+      
 
          
         return c.json({ message: 'Logged out successfully' });

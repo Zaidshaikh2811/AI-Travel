@@ -80,7 +80,7 @@ export default function TripPage() {
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips/${params.id}`, {
                 withCredentials: true
             });
-            console.log(data.trip.destination.name);
+
 
             setTrip(data.trip);
 
@@ -120,7 +120,7 @@ export default function TripPage() {
         );
     }
 
-    console.log(trip);
+
 
 
     return <TripDetails trip={trip} />;

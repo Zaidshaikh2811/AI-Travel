@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
+
 export function middleware(request) {
+
+
     const authToken = request.cookies.get("auth_token");
     const { pathname } = request.nextUrl;
 
@@ -11,7 +14,7 @@ export function middleware(request) {
     // Auth paths
     const authPaths = ['/auth/login', '/auth/register'];
     const isAuthPath = authPaths.some(path => pathname.startsWith(path));
-    console.log("Auth Path: " + isAuthPath);
+
 
     // Redirect to login if accessing protected route without token
     if (isProtectedRoute && !authToken) {

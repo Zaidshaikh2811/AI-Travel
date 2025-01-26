@@ -15,13 +15,13 @@ export const TripCard = ({ trip }) => (
         >
             {/* Background Image with Gradient Overlay */}
             <div className="relative h-48 w-full">
-                <Image
+                {/* <Image
                     src={`/destinations/${trip.destination.name.toLowerCase()}.jpg`}
                     alt={trip.destination.name}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
+                /> */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/60" />
 
                 {/* Top Label */}
