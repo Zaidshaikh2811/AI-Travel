@@ -4,10 +4,8 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
 
 
-    const authToken = request.cookies.get("auth_token")?.value;
+    const authToken = request.cookies.get("auth_token");
     const { pathname } = request.nextUrl;
-    console.log('Auth Token:', authToken);
-    console.log('Current Path:', pathname);
 
     // Protected routes
     const protectedPaths = ['/Trips', '/CreateTrip'];
@@ -25,7 +23,7 @@ export function middleware(request) {
 
     // Redirect to trips if accessing auth pages with token
     if (isAuthPath && authToken) {
-        return NextResponse.redirect(new URL('/Trips', request.url));
+        return NextResponse.redirect(new URL('/trips', request.url));
     }
 
     return NextResponse.next();

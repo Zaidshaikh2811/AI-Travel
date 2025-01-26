@@ -1,10 +1,9 @@
-"use client"
+
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/customs/Header";
 import { Bounce, ToastContainer } from 'react-toastify';
-import { Suspense, useEffect } from "react";
-import { useAuthStore } from "@/components/providers/AuthStore";
+import { Suspense } from "react";
 
 
 const geistSans = localFont({
