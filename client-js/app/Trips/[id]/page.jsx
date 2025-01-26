@@ -62,8 +62,12 @@ export default function TripPage() {
 
     const fetchTrip = async () => {
         try {
+            const token = localStorage.getItem('token');
             const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips/${params.id}`, {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    "Authorization": "Bearer= " + token
+                }
             });
 
 

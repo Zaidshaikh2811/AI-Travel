@@ -202,6 +202,7 @@ export default function NewTrip() {
             const responseText = result.response.text()
 
             const jsonResponse = JSON.parse(responseText);
+            const token = localStorage.getItem('token');
 
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips`,
                 {
@@ -210,7 +211,10 @@ export default function NewTrip() {
                 }, {
                 withCredentials: true,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+
+                    "Authorization": "Bearer= " + token
+
                 }
             });
 

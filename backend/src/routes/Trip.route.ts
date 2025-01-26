@@ -17,6 +17,7 @@ tripRouter.use(async(c, next) => {
 
    try {
       const authHeader=c.req.header('Authorization');
+     console.log("Authorization header: " + authHeader);
      
      const tokenData= authHeader.split(' ')[1]
    

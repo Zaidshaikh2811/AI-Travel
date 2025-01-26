@@ -180,8 +180,8 @@ export const verifyCookie= async (c: Context) => {
     try {
 
             const authHeader=c.req.header('Authorization');
-     
-     const tokenData= authHeader.split(' ')[1]
+        
+            const tokenData= authHeader.split(' ')[1]
    
         
         const token = getCookie(c, 'auth_token')  || tokenData;

@@ -122,11 +122,11 @@ const Header = () => {
                                 className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                                 Home
                             </Link>
-                            <Link href="/trips"
+                            <Link href="/Trips"
                                 className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                                 Trips
                             </Link>
-                            <Link href="/planner"
+                            <Link href="/CreateTrip"
                                 className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                                 Plan Trip
                             </Link>

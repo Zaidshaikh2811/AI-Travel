@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -23,6 +24,7 @@ const structuredData = {
 
 
 const Hero = () => {
+    const router = useRouter
 
 
 
@@ -73,7 +75,7 @@ const Hero = () => {
                             transition={{ delay: 0.4, duration: 0.8 }}
                             className="mt-8 sm:flex sm:justify-center lg:justify-start space-x-4"
                         >
-                            <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
+                            <button onClick={() => { router.push('/Trips') }} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                                 Start Planning
                             </button>
                             <button className="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-base font-medium rounded-full text-blue-600 bg-transparent hover:bg-blue-50 transition-all duration-200">

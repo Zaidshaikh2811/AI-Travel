@@ -25,7 +25,12 @@ export const createTrip = async (c: Context) => {
       return c.json({ error: 'All fields are required' }, 400);
     }
 
-      const token  = getCookie(c, 'auth_token');
+       const authHeader=c.req.header('Authorization');
+        
+            const tokenData= authHeader.split(' ')[1]
+   
+        
+        const token = getCookie(c, 'auth_token')  || tokenData;
     if (!token) {
       throw new Error('Authentication token not found');
     }
@@ -61,7 +66,12 @@ export const createTrip = async (c: Context) => {
 
 export const getTrips = async (c: Context) => {
     try {
-         const token  = getCookie(c, 'auth_token') ;
+           const authHeader=c.req.header('Authorization');
+        
+            const tokenData= authHeader.split(' ')[1]
+   
+        
+        const token = getCookie(c, 'auth_token')  || tokenData;
          const decoded = jwt.verify(token, process.env.JWT_VERIFY);
         const userId = decoded.userId;
        
@@ -83,7 +93,12 @@ export const getTripById = async (c: Context) => {
         console.log("getTripById");
         
         const tripId = c.req.param('id');
-   const token  = getCookie(c, 'auth_token') ;
+    const authHeader=c.req.header('Authorization');
+        
+            const tokenData= authHeader.split(' ')[1]
+   
+        
+        const token = getCookie(c, 'auth_token')  || tokenData;
          const decoded = jwt.verify(token, process.env.JWT_VERIFY);
         const userId = decoded.userId;
     
