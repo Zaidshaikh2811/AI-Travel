@@ -39,7 +39,9 @@ export default function TripPage() {
     const verifyUser = async () => {
         try {
 
-            const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
+            const token = localStorage.getItem('token');
+
+            const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, { token }, {
                 withCredentials: true
             });
 

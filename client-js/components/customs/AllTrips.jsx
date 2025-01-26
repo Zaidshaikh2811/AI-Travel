@@ -45,10 +45,12 @@ const AllTrips = () => {
   };
   const verifyUser = async () => {
     try {
+      const token = localStorage.getItem('token');
 
-      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
+      const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, { token }, {
         withCredentials: true
       });
+
 
 
       if (resp.status !== 200) {
