@@ -6,6 +6,9 @@ export function middleware(request) {
 
     const authToken = request.cookies.get("auth_token");
     const { pathname } = request.nextUrl;
+    console.log("middleware " + authToken);
+
+
 
     // Protected routes
     const protectedPaths = ['/Trips', '/CreateTrip'];

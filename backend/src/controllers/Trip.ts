@@ -36,8 +36,7 @@ export const createTrip = async (c: Context) => {
     }
 
       const decoded = jwt.verify(token, process.env.JWT_VERIFY);
-      console.log(decoded);
-      console.log(decoded.userId);
+    
       
       const userId = decoded.userId;
       if(!userId) {

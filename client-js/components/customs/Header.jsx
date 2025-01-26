@@ -19,9 +19,14 @@ const Header = () => {
             setIsLoading(true);
 
             clearToken()
-            // Clear HTTP-only cookie
+
             await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {}, {
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer= " + token
+                }
+
             });
 
             // Redirect to login
