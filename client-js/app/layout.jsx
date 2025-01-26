@@ -23,24 +23,13 @@ const geistMono = localFont({
 export default function RootLayout({
   children,
 }) {
-  function AuthInit() {
-    const initializeAuth = useAuthStore(state => state.initializeAuth);
-
-    useEffect(() => {
-      initializeAuth();
-    }, []);
-
-    return null;
-  }
-
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense fallback={<div>Loading...</div>}>
-          <AuthInit />
+
           <Header />
 
           {children}
