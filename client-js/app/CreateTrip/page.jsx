@@ -76,8 +76,7 @@ export default function NewTrip() {
                 const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
                     withCredentials: true
                 });
-                console.log(resp);
-                console.log(resp.status);
+
 
                 if (resp.status !== 200) {
                     toast.info('You must be logged in to view this page.');
@@ -198,10 +197,6 @@ export default function NewTrip() {
             const responseText = result.response.text()
 
             const jsonResponse = JSON.parse(responseText);
-            console.log({
-                ...jsonResponse, createdAt: new Date(),
-                startDate: formData.dates.start, endDate: formData.dates.end
-            });
 
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips`,
                 {

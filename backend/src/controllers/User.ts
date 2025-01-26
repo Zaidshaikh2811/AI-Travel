@@ -107,11 +107,10 @@ export const loginUser = async (c: Context) => {
 
     setCookie(c, 'auth_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      
+      sameSite: 'none',
       path: '/',
       maxAge: 60 * 60 * 24, // 24 hours
-      domain: process.env.NODE_ENV === 'production' ? process.env.DOMAIN : 'localhost'
     });
 
 
@@ -180,10 +179,17 @@ export const logoutUser = async (c: Context) => {
 export const verifyCookie= async (c: Context) => {
     try {
         const token = getCookie(c, 'auth_token');
+        const body = await c.req.json();
+          const authHeader =body;
+        console.log("authHeader "+ authHeader);
+        
         if (!token) {
             return c.json({ error: 'Authentication token not found' }, 401);
         }
+     
         const decoded = jwt.verify(token, JWT_SECRET);
+        console.log("Docoded "+ decoded);
+        
         c.set('userId', decoded.userId);
         return c.json({ message: 'Token verified' });
     } catch (err) {

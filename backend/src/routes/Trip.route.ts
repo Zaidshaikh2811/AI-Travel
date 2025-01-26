@@ -14,7 +14,7 @@ import { getCookie } from 'hono/cookie';
 const tripRouter = new Hono();
 
 tripRouter.use(async(c, next) => {
-       const token  = getCookie(c, 'auth_token') ;
+       const token  = getCookie(c, 'auth_token')  ;
 
 
   if (!token) {

@@ -19,11 +19,12 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/tripplann
 
 const app = new Hono();
 
+console.log(process.env.CLIENT_URL);
 
 app.use( cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true,
-
+    allowHeaders: ['Content-Type', 'Authorization'],
 }));
 
 

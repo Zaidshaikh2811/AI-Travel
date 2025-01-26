@@ -6,6 +6,6 @@ const userRouter = new Hono();
 userRouter.post('/signup', createUser);
 userRouter.post('/login', loginUser);
 userRouter.post('/logout', logoutUser);
-userRouter.get("/verifyCookie",verifyCookie);
+userRouter.post("/verifyCookie",verifyCookie);
 
 export default userRouter;

@@ -7,8 +7,9 @@ services:
       - "8080:8080"
     environment:
       - MONGODB_URI=mongodb+srv://zaidshaikhhulk:i3OyRwTpaD9qmpTU@cluster0.gpemd.mongodb.net/
-      - CLIENT_URL=http://localhost:3000
+      - CLIENT_URL=https://ai-travel-7tbm.vercel.app
       - JWT_VERIFY=ia0f9j0983298udnifasnsdjfoj92
+      - NODE_ENV=production
     restart: always
 
   mongo-express:
