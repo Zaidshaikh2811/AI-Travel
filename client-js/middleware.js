@@ -7,6 +7,8 @@ export function middleware(request) {
     const authToken = request.cookies.get("auth_token");
     const { pathname } = request.nextUrl;
     console.log("middleware " + authToken);
+    const allCookies = request.cookies.getAll()
+    console.log(allCookies) // => [{ name: 'nextjs', value: 'fast' }]
 
 
 
