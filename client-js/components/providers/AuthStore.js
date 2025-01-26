@@ -27,7 +27,7 @@ export const useAuthStore = create(
             getToken: () => get().token
         }),
         {
-            name: 'auth-storage', // Key for localStorage
+            name: 'auth_token', // Key for localStorage
             storage: {
                 getItem: (key) => secureStorage.get(key), // Use secureStorage for getting
                 setItem: (key, value) => secureStorage.set(key, value), // Use secureStorage for setting
