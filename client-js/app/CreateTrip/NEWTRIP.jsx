@@ -73,10 +73,13 @@ export default function NewTrip() {
         const verifyUser = async () => {
             try {
 
-          const token = localStorage.getItem('token');
+                const token = localStorage.getItem('token');
 
-                const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, { token }, {
-                    withCredentials: true
+                const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
+                    withCredentials: true,
+                    headers: {
+                        "Authorization": "Bearer= " + token
+                    }
                 });
 
 

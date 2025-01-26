@@ -179,11 +179,12 @@ export const logoutUser = async (c: Context) => {
 export const verifyCookie= async (c: Context) => {
     try {
 
-        const body= await c.req.json();
-        const data= body.token
-      
+            const authHeader=c.req.header('Authorization');
+     
+     const tokenData= authHeader.split(' ')[1]
+   
         
-        const token = getCookie(c, 'auth_token') || data ;
+        const token = getCookie(c, 'auth_token')  || tokenData;
    
      
         
