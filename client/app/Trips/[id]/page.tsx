@@ -53,12 +53,13 @@ export default function TripPage() {
 
     const verifyUser = async () => {
         try {
+            const token = localStorage.getItem('token');
 
-            const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
+            const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, { token }, {
                 withCredentials: true
             });
-            console.log(resp);
-            console.log(resp.status);
+
+
 
             if (resp.status !== 200) {
                 toast.info('You must be logged in to view this page.');
