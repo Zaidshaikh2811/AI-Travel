@@ -8,6 +8,7 @@ import TripDetails from '@/components/customs/TripDetails';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useAuthStore } from '@/components/providers/AuthStore';
+import { useAuth } from '@/components/customs/UseAuth';
 
 
 
@@ -16,67 +17,76 @@ import { useAuthStore } from '@/components/providers/AuthStore';
 
 export default function TripPage() {
     const params = useParams();
-    const router = useRouter()
+    const router = useRouter();
+    const { isVerified, loading: authLoading } = useAuth();
     const token = useAuthStore((state) => state.token);
     const [trip, setTrip] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    // const [placePhoto, setPlacePhoto] = useState<string | null>(null);
-    // const [photoError, setPhotoError] = useState<string | null>(null);
-    // const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-
-
-
-
 
     useEffect(() => {
+        const fetchTrip = async () => {
+            if (!token || !isVerified) return;
 
+            try {
+                setLoading(true);
+                const response = await axios.get(
+                    `${process.env.NEXT_PUBLIC_API_URL}/trips/trips/${params.id}`,
+                    {
+                        withCredentials: true,
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    }
+                );
+                setTrip(response.data.trip);
+            } catch (err) {
+                console.error('Failed to fetch trip:', err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-
-        fetchTrip();
-    }, [params.id, router]);
-
-
-
-    const fetchTrip = async () => {
-        try {
-
-            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips/${params.id}`, {
-                withCredentials: true,
-                headers: {
-                    "Authorization": "Bearer= " + token
-                }
-            });
-
-
-            setTrip(data.trip);
-
-        } catch (err) {
-            setError('Failed to load trip details');
-            console.error('Error fetching trip:', err);
-        } finally {
-            setLoading(false);
+        if (isVerified && params.id) {
+            fetchTrip();
         }
-    };
+    }, [params.id, token, isVerified]);
 
-    if (loading) {
+    if (authLoading || loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500" />
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
             </div>
         );
     }
 
-    if (error || !trip) {
+    if (error) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-center">
-                    <h2 className="text-2xl font-bold text-red-600 mb-2">Error</h2>
-                    <p className="text-gray-600">{error || 'Trip not found'}</p>
+            <div className="container mx-auto px-4 py-8">
+                <div className="bg-red-50 border-l-4 border-red-500 p-4">
+                    <p className="text-red-700">Error loading trip: {error}</p>
                 </div>
             </div>
         );
     }
+
+    if (!trip) {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <div className="text-center">
+                    <h2 className="text-2xl font-bold text-gray-700">Trip not found</h2>
+                    <button
+                        onClick={() => router.push('/Trips')}
+                        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                    >
+                        Back to Trips
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
 
 
 

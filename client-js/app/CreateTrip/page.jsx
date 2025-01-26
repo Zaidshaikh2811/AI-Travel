@@ -21,11 +21,18 @@ import {
     avoidWeatherConditions,
 } from '@/lib';
 import { useAuthStore } from '@/components/providers/AuthStore';
+import { useAuth } from '@/components/customs/UseAuth';
 
 
 
 export default function NewTrip() {
     const router = useRouter()
+    const { isVerified, loading } = useAuth();
+
+
+
+
+
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
         // Basic Info
@@ -210,7 +217,8 @@ export default function NewTrip() {
     };
 
 
-
+    if (loading) return <div>Loading...</div>;
+    if (!isVerified) return null;
 
 
 
