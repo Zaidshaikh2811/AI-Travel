@@ -179,6 +179,8 @@ export const logoutUser = async (c: Context) => {
 export const verifyCookie= async (c: Context) => {
     try {
         const token = getCookie(c, 'auth_token');
+        console.log("Token "+ token);
+        
         if (!token) {
             return c.json({ error: 'Authentication token not found' }, 401);
         }
