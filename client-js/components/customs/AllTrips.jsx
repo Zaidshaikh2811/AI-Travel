@@ -33,7 +33,6 @@ const AllTrips = () => {
     try {
       const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trips/trips`, {
         withCredentials: true,
-
       });
 
 
@@ -46,15 +45,9 @@ const AllTrips = () => {
   };
   const verifyUser = async () => {
     try {
-      const token = localStorage.getItem('token')
 
-      // const resp = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, { token }, {
-      //   withCredentials: true,
-
-      // });
-      const resp = await axios.post(`http://localhost:8080/api/users/verifyCookie`, { token }, {
-        withCredentials: true,
-
+      const resp = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users/verifyCookie`, {
+        withCredentials: true
       });
 
 
