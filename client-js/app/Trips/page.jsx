@@ -2,6 +2,7 @@ import AllTrips from '@/components/customs/AllTrips';
 
 
 
+
 export const metadata = {
     title: 'Your Travel Plans - AI Trip Planner',
     description: 'View and manage your personalized travel itineraries created with AI assistance. Explore destinations, budgets, and detailed trip plans.',

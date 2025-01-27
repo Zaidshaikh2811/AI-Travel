@@ -6,10 +6,11 @@ import axios from 'axios';
 import { FiMail, FiLock, FiUser, FiEye, FiEyeOff } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useAuthStore } from '@/components/providers/AuthStore';
+import { toast } from 'react-toastify';
 
 export default function SignupPage() {
     const router = useRouter();
-    const setToken = useAuthStore();
+    const { setToken } = useAuthStore();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -59,11 +60,14 @@ export default function SignupPage() {
             setIsLoading(true);
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/signup`, formData);
 
-            if (response.data.token) {
-                setToken(response.data.token);
-                router.push('/dashboard');
-            }
+
+
+
+            router.push('/auth/login');
+            toast.success('Signup successful');
         } catch (error) {
+
+            toast.error(error.response?.data?.message || 'Signup failed');
             setErrors({
                 ...errors,
                 email: error.response?.data?.message || 'Signup failed'

@@ -45,11 +45,7 @@ export const createUser =async (c)=>{
             name
         });
          await newUser.save();
-  const token = jwt.sign(
-            { userId: newUser._id },
-            process.env.JWT_SECRET || 'default_secret',
-            { expiresIn: '24h' }
-        );
+  
 
         return c.json({
             message: 'User created successfully',
@@ -57,8 +53,7 @@ export const createUser =async (c)=>{
                 id: newUser._id,
                 email: newUser.email,
                 name: newUser.name
-            },
-            token
+            }
         }, 201);
     }
     catch(err){
@@ -111,7 +106,7 @@ export const loginUser = async (c: Context) => {
        secure: true,
       sameSite: 'none',
       path: '/',
-      maxAge: 60 * 60 * 24, // 24 hours
+      maxAge: 60 * 60 * 24, 
     });
 
 

@@ -24,7 +24,17 @@ console.log(process.env.CLIENT_URL);
 app.use( cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true,
-    allowHeaders: ['Content-Type', 'Authorization'],
+    allowHeaders: [
+    'Content-Type', 
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'Cookie'
+  ],
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  exposeHeaders: ['Set-Cookie', 'Date', 'ETag'],
+  maxAge: 86400,
 }));
 
 

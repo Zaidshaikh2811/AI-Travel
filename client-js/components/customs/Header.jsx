@@ -56,12 +56,17 @@ const Header = () => {
                         <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
                             Home
                         </Link>
-                        <Link href="/Trips" className="text-gray-700 hover:text-blue-600 transition-colors">
-                            Trips
-                        </Link>
-                        <Link href="/CreateTrip" className="text-gray-700 hover:text-blue-600 transition-colors">
-                            Plan Trip
-                        </Link>
+                        {
+                            token != null &&
+                            <>
+                                <Link href="/Trips" className="text-gray-700 hover:text-blue-600 transition-colors">
+                                    Trips
+                                </Link>
+                                <Link href="/CreateTrip" className="text-gray-700 hover:text-blue-600 transition-colors">
+                                    Plan Trip
+                                </Link>
+                            </>
+                        }
                         <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
                             About
                         </Link>
@@ -120,14 +125,19 @@ const Header = () => {
                                 className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                                 Home
                             </Link>
-                            <Link href="/Trips"
-                                className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                                Trips
-                            </Link>
-                            <Link href="/CreateTrip"
-                                className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
-                                Plan Trip
-                            </Link>
+                            {
+                                token != null &&
+                                <>
+                                    <Link href="/Trips"
+                                        className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
+                                        Trips
+                                    </Link>
+                                    <Link href="/CreateTrip"
+                                        className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
+                                        Plan Trip
+                                    </Link>
+                                </>
+                            }
                             <Link href="/about"
                                 className="block px-3 py-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-50">
                                 About
