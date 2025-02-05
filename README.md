@@ -38,29 +38,32 @@ AI_tripPlanner/
 - MongoDB
 
 ### Backend Setup
-```bash
+``` bash
 cd backend
 bun install
 bun dev
-
+```
 
 
 Frontend Setup
+``` bash
 cd frontend
 npm install
 npm run dev
-
+```
 
 Environment Variables
 Backend (.env)
+``` bash
 
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 CLIENT_URL=http://localhost:3000
-
+```
 Frontend (.env.local)
+``` bash
 NEXT_PUBLIC_API_URL=http://localhost:8080
-
+```
 
 🎯Features
 AI-powered trip recommendations
