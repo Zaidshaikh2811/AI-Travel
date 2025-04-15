@@ -63,9 +63,12 @@ export default function LoginPage() {
         } catch (error) {
 
 
-            toast.error(error instanceof Error ? error.response : 'Login failed');
-            setApiError(error instanceof Error ? error.response : 'Login failed');
+            toast.error(error.response.data.error)
+
+            // toast.error(error instanceof Error ? error.response : 'Login failed');
+            // setApiError(error instanceof Error ? error.response : 'Login failed');
         } finally {
+
             setIsLoading(false);
         }
     };

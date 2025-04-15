@@ -7,8 +7,6 @@ import tripRouter from './routes/Trip.route';
 dotenv.config();
 
 
-// import { tripRouter } from './routes/tripRoutes';
-// import { authMiddleware } from './middleware/auth';
 
 
 
@@ -22,7 +20,7 @@ const app = new Hono();
 console.log(process.env.CLIENT_URL);
 
 app.use( cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: '*',
   credentials: true,
     allowHeaders: [
     'Content-Type', 
@@ -39,7 +37,8 @@ app.use( cors({
 
 
 
-// Routes
+
+
 app.route('/api/users', userRouter);
 app.route('/api/trips', tripRouter);
 
