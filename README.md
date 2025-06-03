@@ -1,8 +1,4 @@
-Project overview
-Tech stack
-Directory structure
-Setup instructions
-Features & screenshots
+Try the live version of the application: [https://ai-travel-7tbm.vercel.app](https://ai-travel-7tbm.vercel.app)
 
 # AI Trip Planner
 
